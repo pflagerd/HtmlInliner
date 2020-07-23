@@ -1,8 +1,8 @@
 package com.pflager;
 
-public class Main {
+public class HtmlInliner {
 
     public static void main(String[] args) {
-	// write your code here
+	    // write your code here
     }
 }
