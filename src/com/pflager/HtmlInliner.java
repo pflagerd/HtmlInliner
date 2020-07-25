@@ -7,10 +7,6 @@ import org.jsoup.nodes.Element;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class HtmlInliner {
 
@@ -20,10 +16,11 @@ public class HtmlInliner {
             "    which will produce somefile.inlined.html as output, if successful."
             ;
 
-    private static int inlineAFile(String fileName) throws IOException {
-        File file = new File(fileName);
+    private static int inlineAFile(String inputFileName) throws IOException {
+        File file = new File(inputFileName);
         File parentDirectory = file.getParentFile();
         Document doc = Jsoup.parse(file, "UTF-8");
+        doc.outputSettings().prettyPrint(false);
 
         for (Element element : doc.select("script")) {
             String src = element.attr("src");
@@ -37,8 +34,10 @@ public class HtmlInliner {
             }
         }
 
-        System.out.println(doc.outerHtml()); // DPP: 200723013715Z: For testing only.
-        return 1;
+        int index = inputFileName.lastIndexOf('.');
+        String outputFileName = inputFileName.substring(0, index) + ".inlined" + inputFileName.substring(index);
+        FileUtils.writeStringToFile(new File(outputFileName), doc.outerHtml(), "utf-8");
+        return 0;
     }
 
     public static void main(String[] args) throws IOException {
