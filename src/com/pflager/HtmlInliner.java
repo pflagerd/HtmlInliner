@@ -4,6 +4,7 @@ import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.parser.Parser;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class HtmlInliner {
 
         int index = inputFileName.lastIndexOf('.');
         String outputFileName = inputFileName.substring(0, index) + ".inlined" + inputFileName.substring(index);
-        FileUtils.writeStringToFile(new File(outputFileName), doc.outerHtml(), "utf-8");
+        FileUtils.writeStringToFile(new File(outputFileName), Parser.unescapeEntities(doc.outerHtml(), false), "utf-8");
         return 0;
     }
 
