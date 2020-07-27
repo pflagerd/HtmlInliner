@@ -53,6 +53,7 @@ public class HtmlInliner {
             String src = element.attr("src");
             if (src != null) {
                 URI srcUri = inputUri.resolve(src);
+                SSLFix.execute();
                 String srcUriContents = IOUtils.toString(srcUri, "utf-8");
                 // delete the src attribute
                 element.removeAttr("src");
@@ -90,4 +91,6 @@ public class HtmlInliner {
 
         System.exit(returnValue);
     }
+
+
 }
