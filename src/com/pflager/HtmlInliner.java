@@ -63,9 +63,9 @@ public class HtmlInliner {
         }
 
         // DPP: 200727024255Z: TBD
-        //        int index = inputURL.lastIndexOf('.');
-//        String outputFileName = inputURL.substring(0, index) + ".inlined" + inputURL.substring(index);
-//        FileUtils.writeStringToFile(new File(outputFileName), Parser.unescapeEntities(doc.outerHtml(), false), "utf-8");
+        int index = inputUriString.lastIndexOf('.');
+        String outputFileName = inputUriString.substring(0, index) + ".inlined" + inputUriString.substring(index);
+        FileUtils.writeStringToFile(new File(outputFileName), Parser.unescapeEntities(doc.outerHtml(), false), "utf-8");
         return 0;
     }
 
